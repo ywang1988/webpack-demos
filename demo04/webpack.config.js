@@ -4,8 +4,11 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
-    loaders:[
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
+    rules:[
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      },
     ]
   }
 };

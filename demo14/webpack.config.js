@@ -4,14 +4,22 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
-    loaders:[
-      { test: /\.js[x]?$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react' },
+    rules:[
+      {
+        test: /\.js[x]?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'react']
+          }
+        }
+      },
     ]
   },
   externals: {
-    // require("jquery") is external and available
-    //  on the global var jQuery
-    //  "jquery": "jQuery"
+    // require('data') is external and available
+    //  on the global var data
     'data': 'data'
   }
 };

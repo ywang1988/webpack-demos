@@ -1,4 +1,5 @@
-var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
+var webpack = require('webpack');
+
 module.exports = {
   entry: {
     bundle1: './main1.jsx',
@@ -8,11 +9,26 @@ module.exports = {
     filename: '[name].js'
   },
   module: {
-    loaders:[
-      { test: /\.js[x]?$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react' },
+    rules:[
+      {
+        test: /\.js[x]?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'react']
+          }
+        }
+      },
     ]
   },
   plugins: [
-    new CommonsChunkPlugin('init.js')
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "commons",
+      // (the commons chunk name)
+
+      filename: "commons.js",
+      // (the filename of the commons chunk)
+    })
   ]
 }
